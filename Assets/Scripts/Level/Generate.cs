@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Generate : MonoBehaviour
 {
-    private int level = 1;
+    private int level = 0;
     private int countObject = 40;
 
     private double x1 = -27;
@@ -30,6 +30,9 @@ public class Generate : MonoBehaviour
     void Start()
     {
         var allObjects = new List<GameObject>();
+
+        countObject -= level;
+        
         for (var c = 0; c < countObject / 4; ++c)
         {
             var x = RandX();
