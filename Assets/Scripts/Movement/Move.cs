@@ -34,8 +34,8 @@ public class Move : Physics2DObject
 		}
 		else
 		{
-			moveHorizontal = Input.GetAxis("Horizontal2");
-			moveVertical = Input.GetAxis("Vertical2");
+			moveHorizontal = Input.GetAxis("Horizontal");
+			moveVertical = Input.GetAxis("Vertical");
 		}
 
 		//zero-out the axes that are not needed, if the movement is constrained
