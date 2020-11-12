@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using static DefaultNamespace.Utils_RandPoint;
 using UnityEngine;
 using static Level.GlobalSettings;
 
@@ -9,24 +9,27 @@ public class Generate : MonoBehaviour
     public GameObject grassPrefab;
     public GameObject bushPrefab;
 
-    private System.Random rand = new System.Random();
+    public GameObject hat;
+    public GameObject blouse;
+    public GameObject coat;
+    public GameObject pants;
+    public GameObject scarf;
 
-    float RandX()
-    {
-        return (float) ((rand.Next() % (x2 - x1) + x1) * 0.99);
-    }
-
-    float RandY()
-    {
-        return (float) ((rand.Next() % (y1 - y2) + y2) * 0.99);
-    }
-
-    bool checkPlace(float x, float y)
+    bool checkPlace(float x, float y, float d)
     {
         foreach (var obj in AllObjects)
         {
             if ((obj.transform.position.x - x) * (obj.transform.position.x - x) +
-                (obj.transform.position.y - y) * (obj.transform.position.y - y) < 9)
+                (obj.transform.position.y - y) * (obj.transform.position.y - y) < d * d)
+            {
+                return false;
+            }
+        }
+
+        foreach (var wear in AllWear)
+        {
+            if ((wear.transform.position.x - x) * (wear.transform.position.x - x) +
+                (wear.transform.position.y - y) * (wear.transform.position.y - y) < d * d)
             {
                 return false;
             }
@@ -42,16 +45,29 @@ public class Generate : MonoBehaviour
         for (var c = 0; c < countObject / 4; ++c)
         {
             bool ok = false;
-            float x = 0, y = 0;
+            float x = RandX(), y = RandY();
             while (!ok)
             {
                 x = RandX();
                 y = RandY();
-                ok = checkPlace(x, y);
+                ok = checkPlace(x, y, 3);
             }
 
             AllObjects.Add(Instantiate(gameObject, new Vector2(x, y), Quaternion.identity));
         }
+    }
+
+    void GenerateWear(GameObject wear)
+    {
+        float x = RandX(), y = RandY();
+        while (!checkPlace(x, y, 2))
+        {
+            x = RandX();
+            y = RandY();
+        }
+
+        AllWear.Add(Instantiate(wear, new Vector2(x, y), Quaternion.identity));
+        ;
     }
 
 // Start is called before the first frame update
@@ -61,6 +77,11 @@ public class Generate : MonoBehaviour
         GenerateObjects(stone2Prefab);
         GenerateObjects(grassPrefab);
         GenerateObjects(bushPrefab);
+        GenerateWear(hat);
+        GenerateWear(coat);
+        GenerateWear(scarf);
+        GenerateWear(pants);
+        GenerateWear(blouse);
     }
 
 // Update is called once per frame
