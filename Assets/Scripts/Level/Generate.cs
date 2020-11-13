@@ -40,8 +40,6 @@ public class Generate : MonoBehaviour
 
     void GenerateObjects(GameObject gameObject)
     {
-        countObject -= level;
-
         for (var c = 0; c < countObject / 4; ++c)
         {
             bool ok = false;

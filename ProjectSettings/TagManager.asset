@@ -44,6 +44,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Wear
+    uniqueID: 3437875729
+    locked: 0
   - name: Person
     uniqueID: 2868915485
     locked: 0

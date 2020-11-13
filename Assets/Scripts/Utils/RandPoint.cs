@@ -1,4 +1,5 @@
-﻿using static Level.GlobalSettings;
+﻿using UnityEngine;
+using static Level.GlobalSettings;
 
 namespace DefaultNamespace
 {
@@ -8,12 +9,12 @@ namespace DefaultNamespace
         
         public static float RandX()
         {
-            return (float) ((rand.Next() % (x2 - x1) + x1) * 0.95);
+            return (float) ((float) rand.Next( (int) x1, (int) x2) * 0.95);
         }
 
         public static float RandY()
         {
-            return (float) ((rand.Next() % (y1 - y2) + y2) * 0.95);
+            return (float) ((float) rand.Next( (int) y2, (int) y1) * 0.95);
         }
     }
 }
