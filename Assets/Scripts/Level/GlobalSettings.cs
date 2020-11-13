@@ -5,7 +5,7 @@ namespace Level
 {
     public class GlobalSettings
     {
-        public  static int level = 0;
+        public  static int level = 1;
         public  static  int countObject = 100;
 
         public  static float x1 = -100;

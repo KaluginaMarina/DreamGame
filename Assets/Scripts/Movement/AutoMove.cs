@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using static DefaultNamespace.Utils_RandPoint;
 using static Level.GlobalSettings;
 
@@ -8,8 +9,8 @@ using static Level.GlobalSettings;
 public class AutoMove : Physics2DObject
 {
     public Vector2 direction = new Vector2(1f, 0f);
-    public GameObject BadGuy;
-    public GameObject GoodGuy;
+    public GameObject badGuy;
+    public GameObject goodGuy;
 
     private int _frameCount = 50;
     private static System.Random rand = new System.Random();
@@ -27,8 +28,8 @@ public class AutoMove : Physics2DObject
 
             if (CheckGoodGuyDistance(15) && !CheckGoodGuyPlace())
             {
-                var position1 = GoodGuy.transform.position;
-                var position2 = BadGuy.transform.position;
+                var position1 = goodGuy.transform.position;
+                var position2 = badGuy.transform.position;
                 direction.x = -(position2.x - position1.x) * 2;
                 direction.y = -(position2.y - position1.y) * 2;
             }
@@ -36,27 +37,28 @@ public class AutoMove : Physics2DObject
             if (CheckGoodGuyDistance(4) && !CheckGoodGuyPlace())
             {
                 IsGameOn = false;
+                
                 print("Game Over");
             }
 
-            var position = BadGuy.transform.position;
-            if (BadGuy.transform.position.x < x1 + 1.5)
+            var position = badGuy.transform.position;
+            if (badGuy.transform.position.x < x1 + 1.5)
             {
                 if (direction.x < 0) direction.x = 0;
                 position.Set(x1, position.y, 0);
             }
-            else if (BadGuy.transform.position.x > x2 - 1.5)
+            else if (badGuy.transform.position.x > x2 - 1.5)
             {
                 if (direction.x > 0) direction.x = 0;
                 position.Set(x2, position.y, 0);
             }
 
-            if (BadGuy.transform.position.y > y1)
+            if (badGuy.transform.position.y > y1)
             {
                 if (direction.y > 0) direction.y = 0;
                 position.Set(position.x, y1, 0);
             }
-            else if (BadGuy.transform.position.y < y2)
+            else if (badGuy.transform.position.y < y2)
             {
                 if (direction.y < 0) direction.y = 0;
                 position.Set(position.x, y2, 0);
@@ -68,10 +70,10 @@ public class AutoMove : Physics2DObject
 
     private bool CheckGoodGuyDistance(int d)
     {
-        var position1 = GoodGuy.transform.position;
+        var position1 = goodGuy.transform.position;
         float x1 = position1.x;
         float y1 = position1.y;
-        var position = BadGuy.transform.position;
+        var position = badGuy.transform.position;
         float x2 = position.x;
         float y2 = position.y;
 
@@ -80,8 +82,8 @@ public class AutoMove : Physics2DObject
 
     private bool CheckGoodGuyPlace()
     {
-        int d = 1;
-        var position = GoodGuy.transform.position;
+        float d = 1.5f;
+        var position = goodGuy.transform.position;
         float x = position.x;
         float y = position.y;
         foreach (var obj in AllObjects)

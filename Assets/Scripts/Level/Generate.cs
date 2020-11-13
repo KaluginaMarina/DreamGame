@@ -1,13 +1,18 @@
 ﻿using static DefaultNamespace.Utils_RandPoint;
 using UnityEngine;
+using UnityEngine.Serialization;
 using static Level.GlobalSettings;
 
 public class Generate : MonoBehaviour
 {
+    public GameObject badGuy;
+    public GameObject goodGuy;
+
     public GameObject stone1Prefab;
     public GameObject stone2Prefab;
     public GameObject grassPrefab;
     public GameObject bushPrefab;
+
 
     public GameObject hat;
     public GameObject blouse;
@@ -68,6 +73,30 @@ public class Generate : MonoBehaviour
         ;
     }
 
+    void GenerateBadGuys()
+    {
+        for (var i = 0; i < 10 * level; ++i)
+        {
+            float x = RandX(), y = RandY();
+            while (!CheckGoodGuyDistance(x, y, 10))
+            {
+                x = RandX();
+                y = RandY();
+            }
+
+            Instantiate(badGuy, new Vector2(x, y), Quaternion.identity);
+        }
+    }
+
+    private bool CheckGoodGuyDistance(float x2, float y2, int d)
+    {
+        var position1 = goodGuy.transform.position;
+        float x1 = position1.x;
+        float y1 = position1.y;
+
+        return ((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) > d * d);
+    }
+
 // Start is called before the first frame update
     void Start()
     {
@@ -80,6 +109,7 @@ public class Generate : MonoBehaviour
         GenerateWear(scarf);
         GenerateWear(pants);
         GenerateWear(blouse);
+        GenerateBadGuys();
     }
 
 // Update is called once per frame

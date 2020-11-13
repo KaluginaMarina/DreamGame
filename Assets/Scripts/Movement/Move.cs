@@ -72,6 +72,10 @@ public class Move : Physics2DObject
 
             movement = new Vector2(moveHorizontal, moveVertical);
         }
+        else
+        {
+            movement = new Vector2(0, 0);
+        }
     }
 
 
