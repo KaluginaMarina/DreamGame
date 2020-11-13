@@ -25,46 +25,53 @@ public class Move : Physics2DObject
     // Update gets called every frame
     void Update()
     {
-        // Moving with the arrow keys
-        moveHorizontal = Input.GetAxis("Horizontal");
-        moveVertical = Input.GetAxis("Vertical");
+        if (IsGameOn)
+        {
+            // Moving with the arrow keys
+            moveHorizontal = Input.GetAxis("Horizontal");
+            moveVertical = Input.GetAxis("Vertical");
 
-        var position = GoodGuy.transform.position;
-        if (GoodGuy.transform.position.x < x1 + 1.5)
-        {
-            if (moveHorizontal < 0)
+            var position = GoodGuy.transform.position;
+            if (GoodGuy.transform.position.x < x1 + 1.5)
             {
-                moveHorizontal *= -1;
-            }
-            position.Set(x1, position.y, 0);
-        }
-        else if (GoodGuy.transform.position.x > x2 - 1.5)
-        {
-            if (moveHorizontal > 0)
-            {
-                moveHorizontal *= -1;
-            }
-            position.Set(x2, position.y, 0);
-        }
+                if (moveHorizontal < 0)
+                {
+                    moveHorizontal *= -1;
+                }
 
-        if (GoodGuy.transform.position.y > y1)
-        {
-            if (moveVertical > 0)
-            {
-                moveVertical *= -1;
+                position.Set(x1, position.y, 0);
             }
-            position.Set(position.x, y1, 0);
-        }
-        else if (GoodGuy.transform.position.y < y2)
-        {
-            if (moveVertical < 0)
+            else if (GoodGuy.transform.position.x > x2 - 1.5)
             {
-                moveVertical *= -1;
-            }
-            position.Set(position.x, y2, 0);
-        }
+                if (moveHorizontal > 0)
+                {
+                    moveHorizontal *= -1;
+                }
 
-        movement = new Vector2(moveHorizontal, moveVertical);
+                position.Set(x2, position.y, 0);
+            }
+
+            if (GoodGuy.transform.position.y > y1)
+            {
+                if (moveVertical > 0)
+                {
+                    moveVertical *= -1;
+                }
+
+                position.Set(position.x, y1, 0);
+            }
+            else if (GoodGuy.transform.position.y < y2)
+            {
+                if (moveVertical < 0)
+                {
+                    moveVertical *= -1;
+                }
+
+                position.Set(position.x, y2, 0);
+            }
+
+            movement = new Vector2(moveHorizontal, moveVertical);
+        }
     }
 
 

@@ -15,6 +15,7 @@ namespace Level
 
         public static List<GameObject> AllObjects = new List<GameObject>();
         public static List<GameObject> AllWear = new List<GameObject>();
-        
+
+        public static bool IsGameOn = true;
     }
 }
