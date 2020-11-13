@@ -32,23 +32,35 @@ public class Move : Physics2DObject
         var position = GoodGuy.transform.position;
         if (GoodGuy.transform.position.x < x1 + 1.5)
         {
-            if (moveHorizontal < 0) moveHorizontal = 0;
+            if (moveHorizontal < 0)
+            {
+                moveHorizontal *= -1;
+            }
             position.Set(x1, position.y, 0);
         }
         else if (GoodGuy.transform.position.x > x2 - 1.5)
         {
-            if (moveHorizontal > 0) moveHorizontal = 0;
+            if (moveHorizontal > 0)
+            {
+                moveHorizontal *= -1;
+            }
             position.Set(x2, position.y, 0);
         }
 
         if (GoodGuy.transform.position.y > y1)
         {
-            if (moveVertical > 0) moveVertical = 0;
+            if (moveVertical > 0)
+            {
+                moveVertical *= -1;
+            }
             position.Set(position.x, y1, 0);
         }
         else if (GoodGuy.transform.position.y < y2)
         {
-            if (moveVertical < 0) moveVertical = 0;
+            if (moveVertical < 0)
+            {
+                moveVertical *= -1;
+            }
             position.Set(position.x, y2, 0);
         }
 
