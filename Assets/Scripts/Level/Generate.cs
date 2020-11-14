@@ -1,4 +1,5 @@
-﻿using static DefaultNamespace.Utils_RandPoint;
+﻿using System.Collections.Generic;
+using static DefaultNamespace.Utils_RandPoint;
 using UnityEngine;
 using UnityEngine.Serialization;
 using static Level.GlobalSettings;
@@ -112,6 +113,13 @@ public class Generate : MonoBehaviour
         GenerateBadGuys();
     }
 
+    public void RegenerateLevel()
+    {
+        AllWear = new List<GameObject>();
+        AllObjects = new List<GameObject>();
+        Start();
+    }
+    
 // Update is called once per frame
     void Update()
     {

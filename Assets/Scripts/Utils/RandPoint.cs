@@ -20,8 +20,8 @@ namespace DefaultNamespace
 
         public static Vector2 RandDirection()
         {
-            int randX = rand.Next(0, 15) * (rand.Next(-2, 2) > 0 ? -1 : 1);
-            int randY = (15 - Math.Abs(randX)) * (rand.Next(-2, 2) > 0 ? -1 : 1);
+            int randX = rand.Next(0, 15) * (rand.Next(Int32.MinValue, Int32.MaxValue) > 0 ? -1 : 1);
+            int randY = (15 - Math.Abs(randX)) * (rand.Next(Int32.MinValue, Int32.MaxValue) > 0 ? -1 : 1);
             return new Vector2(randX, randY);
         }
     }

@@ -8,6 +8,8 @@ public class Move : Physics2DObject
 {
     [Header("Input keys")] public Enums.KeyGroups typeOfControl = Enums.KeyGroups.ArrowKeys;
 
+    public GameObject generate;
+
     [Header("Movement")] [Tooltip("Speed of movement")]
     public float speed = 5f;
 
@@ -99,6 +101,8 @@ public class Move : Physics2DObject
                 if (WearCount == AllWear.Count)
                 {
                     level++;
+                    print("Level " + level);
+                    generate.GetComponents<Generate>()[0].RegenerateLevel();
                 }
                 
             }    
