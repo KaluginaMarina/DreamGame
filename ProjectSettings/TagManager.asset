@@ -53,6 +53,9 @@ TagManager:
   - name: Face
     uniqueID: 1114500853
     locked: 0
+  - name: Camera
+    uniqueID: 3917430703
+    locked: 0
   - name: Nature
     uniqueID: 2390497919
     locked: 0

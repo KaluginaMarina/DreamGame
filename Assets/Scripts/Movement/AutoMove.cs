@@ -11,7 +11,9 @@ public class AutoMove : Physics2DObject
     public Vector2 direction = new Vector2(1f, 0f);
     public GameObject badGuy;
     public GameObject goodGuy;
-
+    public GameObject camera;
+    private bool withCamera = false;
+    
     private int _frameCount = 50;
     private static System.Random rand = new System.Random();
 
@@ -37,8 +39,10 @@ public class AutoMove : Physics2DObject
             if (CheckGoodGuyDistance(4) && !CheckGoodGuyPlace())
             {
                 IsGameOn = false;
-                
+                var position2 = badGuy.transform.position;
+                Instantiate(camera, new Vector2((float) (position2.x), (float) (position2.y)), Quaternion.identity);
                 print("Game Over");
+                withCamera = true;
             }
 
             var position = badGuy.transform.position;
@@ -65,6 +69,27 @@ public class AutoMove : Physics2DObject
             }
 
             rigidbody2D.AddForce(direction * 6f);
+        }
+        else
+        {
+            if (!CheckGoodGuyDistance(4))
+            {
+                var position1 = goodGuy.transform.position;
+                var position2 = badGuy.transform.position;
+                direction.x = -(position2.x - position1.x) * 2;
+                direction.y = -(position2.y - position1.y) * 2;
+                rigidbody2D.AddForce(direction * 6f);
+            }
+            else
+            {
+                if (!withCamera)
+                {
+                    var position2 = badGuy.transform.position;
+                    Instantiate(camera, new Vector2((float) (position2.x + 0.05), (float) (position2.y + 0.05)),
+                        Quaternion.identity);
+                    withCamera = true;
+                }
+            }
         }
     }
 
