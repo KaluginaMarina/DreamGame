@@ -111,6 +111,7 @@ public class Generate : MonoBehaviour
         GenerateWear(pants);
         GenerateWear(blouse);
         GenerateBadGuys();
+        goodGuy.GetComponentInChildren<UnityEngine.UI.Text>().text = "Level " + level;
     }
 
     public void RegenerateLevel()
@@ -139,8 +140,4 @@ public class Generate : MonoBehaviour
         Start();
     }
 
-// Update is called once per frame
-    void Update()
-    {
-    }
 }
