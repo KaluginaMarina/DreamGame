@@ -14,8 +14,7 @@ public class Generate : MonoBehaviour
     public GameObject stone2Prefab;
     public GameObject grassPrefab;
     public GameObject bushPrefab;
-
-
+    
     public GameObject hat;
     public GameObject blouse;
     public GameObject coat;
@@ -108,6 +107,11 @@ public class Generate : MonoBehaviour
 // Start is called before the first frame update
     void Start()
     {
+        if (badGuy != null)
+        {
+            BadGuys.Add(badGuy);
+        }
+
         GenerateObjects(stone1Prefab);
         GenerateObjects(stone2Prefab);
         GenerateObjects(grassPrefab);
@@ -124,11 +128,6 @@ public class Generate : MonoBehaviour
         _texts[1].text = "Найдено " + WearCount + "/" + AllWear.Count;
         _texts[2].text = "Уровень " + level;
         _texts[3].text = "Нажмите любую клавишу для старта";
-
-        for (int frameCount = 0; frameCount < 200; frameCount+=2)
-        {
-            frameCount--;
-        }
     }
 
     public void RegenerateLevel()
@@ -147,12 +146,20 @@ public class Generate : MonoBehaviour
         {
             Destroy(badGuy);
         }
+        foreach (var camera in Cameras)
+        {
+            Destroy(camera);
+        }
+
 
         AllWear = new List<GameObject>();
         AllObjects = new List<GameObject>();
         BadGuys = new List<GameObject>();
         WearCount = 0;
-
+        CountWithCamera = 0;
+        IsStart = false;
+        IsGameOn = true;
+        
         goodGuy.transform.SetPositionAndRotation(new Vector3(0, 0, 0), Quaternion.identity);
         Start();
     }

@@ -13,6 +13,8 @@ public class AutoMove : Physics2DObject
     public GameObject badGuy;
     public GameObject goodGuy;
     public GameObject camera;
+    public GameObject generate;
+    
     private bool withCamera = false;
     private int _frameCount = 50;
     private static System.Random rand = new System.Random();
@@ -20,6 +22,15 @@ public class AutoMove : Physics2DObject
     // FixedUpdate is called once per frame
     void FixedUpdate()
     {
+        if (!IsGameOn && Input.anyKey && CountWithCamera >= BadGuys.Count - 1)
+        {
+            level = 1;
+            goodGuy.GetComponentsInChildren<UnityEngine.UI.Text>()[2].text = "";
+            goodGuy.GetComponentsInChildren<UnityEngine.UI.Text>()[3].text = "";
+            
+            generate.GetComponents<Generate>()[0].RegenerateLevel();
+        }
+        
         if (IsGameOn && IsStart)
         {
             if (_frameCount-- < 0)
@@ -40,6 +51,7 @@ public class AutoMove : Physics2DObject
             {
                 goodGuy.GetComponentsInChildren<UnityEngine.UI.Text>()[2].text = "Game Over";
                 IsGameOn = false;
+                IsStart = false;
                 var position2 = badGuy.transform.position;
                 Instantiate(camera, new Vector2((float) (position2.x), (float) (position2.y-0.3)), Quaternion.identity);
                 print("Game Over");
@@ -86,11 +98,11 @@ public class AutoMove : Physics2DObject
                 if (!withCamera)
                 {
                     var position2 = badGuy.transform.position;
-                    Instantiate(camera, new Vector2((float) (position2.x + 0.05), (float) (position2.y + 0.05)),
-                        Quaternion.identity);
+                    Cameras.Add(Instantiate(camera, new Vector2((float) (position2.x + 0.05), (float) (position2.y + 0.05)),
+                        Quaternion.identity));
                     withCamera = true;
-                    countWithCamera++;
-                    if (countWithCamera == BadGuys.Count)
+                    CountWithCamera++;
+                    if (CountWithCamera == BadGuys.Count - 1)
                     {
                         goodGuy.GetComponentsInChildren<UnityEngine.UI.Text>()[3].text = "Нажмите любую клавишу, чтобы играть заново.";
                     }

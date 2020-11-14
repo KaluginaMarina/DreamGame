@@ -17,13 +17,14 @@ namespace Level
         public static List<GameObject> AllObjects = new List<GameObject>();
         public static List<GameObject> AllWear = new List<GameObject>();
         public static List<GameObject> BadGuys = new List<GameObject>();
+        public static List<GameObject> Cameras = new List<GameObject>();
         
         public static int WearCount = 0;
         
         public static bool IsGameOn = true;
         public static bool IsStart = false;
 
-        public static int countWithCamera = 0;
+        public static int CountWithCamera = 0;
 
     }
 }

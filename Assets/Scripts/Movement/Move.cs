@@ -26,7 +26,7 @@ public class Move : Physics2DObject
     
     void Update()
     {
-        if (!IsStart)
+        if (!IsStart && IsGameOn)
         {
             if (Input.anyKey)
             {
