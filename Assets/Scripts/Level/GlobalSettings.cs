@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Level
@@ -20,5 +21,9 @@ namespace Level
         public static int WearCount = 0;
         
         public static bool IsGameOn = true;
+        public static bool IsStart = false;
+
+        public static int countWithCamera = 0;
+
     }
 }

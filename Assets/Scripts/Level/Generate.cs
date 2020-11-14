@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using static DefaultNamespace.Utils_RandPoint;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
+using System.Threading;
 using static Level.GlobalSettings;
 
 public class Generate : MonoBehaviour
@@ -118,8 +118,17 @@ public class Generate : MonoBehaviour
         GenerateWear(pants);
         GenerateWear(blouse);
         GenerateBadGuys();
+
+        
         _texts[0].text = "Уровень " + level;
         _texts[1].text = "Найдено " + WearCount + "/" + AllWear.Count;
+        _texts[2].text = "Уровень " + level;
+        _texts[3].text = "Нажмите любую клавишу для старта";
+
+        for (int frameCount = 0; frameCount < 200; frameCount+=2)
+        {
+            frameCount--;
+        }
     }
 
     public void RegenerateLevel()

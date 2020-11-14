@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 using static Level.GlobalSettings;
 
 [AddComponentMenu("Playground/Movement/Move With Arrows")]
@@ -22,17 +23,30 @@ public class Move : Physics2DObject
     private Vector2 movement, cachedDirection;
     private float moveHorizontal;
     private float moveVertical;
-
-
-    // Update gets called every frame
+    
     void Update()
     {
+        if (!IsStart)
+        {
+            if (Input.anyKey)
+            {
+                IsStart = true;
+                GoodGuy.GetComponentsInChildren<UnityEngine.UI.Text>()[3].text = "";
+            }
+        }
+        
         if (IsGameOn)
         {
             // Moving with the arrow keys
             moveHorizontal = Input.GetAxis("Horizontal");
             moveVertical = Input.GetAxis("Vertical");
 
+            if (moveHorizontal != 0 && moveVertical != 0)
+            {
+                GoodGuy.GetComponentsInChildren<UnityEngine.UI.Text>()[2].text = "";
+                IsStart = true;
+            }
+            
             var position = GoodGuy.transform.position;
             if (GoodGuy.transform.position.x < x1 + 1.5)
             {
@@ -102,8 +116,10 @@ public class Move : Physics2DObject
                 if (WearCount == AllWear.Count)
                 {
                     level++;
+                    GoodGuy.GetComponentsInChildren<UnityEngine.UI.Text>()[2].text = "Уровень " + level;
                     print("Level " + level);
                     generate.GetComponents<Generate>()[0].RegenerateLevel();
+                    IsStart = false;
                 }
                 
             }    

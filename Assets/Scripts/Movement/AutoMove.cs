@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 using static DefaultNamespace.Utils_RandPoint;
 using static Level.GlobalSettings;
 
@@ -13,14 +14,13 @@ public class AutoMove : Physics2DObject
     public GameObject goodGuy;
     public GameObject camera;
     private bool withCamera = false;
-    
     private int _frameCount = 50;
     private static System.Random rand = new System.Random();
 
     // FixedUpdate is called once per frame
     void FixedUpdate()
     {
-        if (IsGameOn)
+        if (IsGameOn && IsStart)
         {
             if (_frameCount-- < 0)
             {
@@ -38,6 +38,7 @@ public class AutoMove : Physics2DObject
 
             if (CheckGoodGuyDistance(4) && !CheckGoodGuyPlace())
             {
+                goodGuy.GetComponentsInChildren<UnityEngine.UI.Text>()[2].text = "Game Over";
                 IsGameOn = false;
                 var position2 = badGuy.transform.position;
                 Instantiate(camera, new Vector2((float) (position2.x), (float) (position2.y-0.3)), Quaternion.identity);
@@ -70,7 +71,7 @@ public class AutoMove : Physics2DObject
 
             rigidbody2D.AddForce(direction * 6f);
         }
-        else
+        else if (!IsGameOn)
         {
             if (!CheckGoodGuyDistance(4))
             {
@@ -88,6 +89,11 @@ public class AutoMove : Physics2DObject
                     Instantiate(camera, new Vector2((float) (position2.x + 0.05), (float) (position2.y + 0.05)),
                         Quaternion.identity);
                     withCamera = true;
+                    countWithCamera++;
+                    if (countWithCamera == BadGuys.Count)
+                    {
+                        goodGuy.GetComponentsInChildren<UnityEngine.UI.Text>()[3].text = "Нажмите любую клавишу, чтобы играть заново.";
+                    }
                 }
             }
         }
