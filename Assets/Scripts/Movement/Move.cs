@@ -70,11 +70,38 @@ public class Move : Physics2DObject
                 position.Set(position.x, y2, 0);
             }
 
+            CheckWear();
+            
             movement = new Vector2(moveHorizontal, moveVertical);
         }
         else
         {
             movement = new Vector2(0, 0);
+        }
+    }
+
+    private void CheckWear()
+    {
+        foreach (var wear in AllWear)
+        {
+            var position = wear.transform.position;
+            float x1 = position.x;
+            var position1 = GoodGuy.transform.position;
+            float x2 = position1.x;
+            float y1 = position.y;
+            float y2 = position1.y;
+            if ((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) < 1)
+            {
+                wear.transform.SetPositionAndRotation(new Vector2(-150, -150), Quaternion.identity);
+                WearCount++;
+                print(WearCount + "/" + AllWear.Count);
+
+                if (WearCount == AllWear.Count)
+                {
+                    level++;
+                }
+                
+            }    
         }
     }
 

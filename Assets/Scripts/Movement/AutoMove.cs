@@ -40,7 +40,7 @@ public class AutoMove : Physics2DObject
             {
                 IsGameOn = false;
                 var position2 = badGuy.transform.position;
-                Instantiate(camera, new Vector2((float) (position2.x), (float) (position2.y)), Quaternion.identity);
+                Instantiate(camera, new Vector2((float) (position2.x), (float) (position2.y-0.3)), Quaternion.identity);
                 print("Game Over");
                 withCamera = true;
             }
