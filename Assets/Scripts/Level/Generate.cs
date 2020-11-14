@@ -85,7 +85,7 @@ public class Generate : MonoBehaviour
                 y = RandY();
             }
 
-            Instantiate(badGuy, new Vector2(x, y), Quaternion.identity);
+            BadGuys.Add(Instantiate(badGuy, new Vector2(x, y), Quaternion.identity));
         }
     }
 
@@ -115,11 +115,30 @@ public class Generate : MonoBehaviour
 
     public void RegenerateLevel()
     {
+        foreach (var wear in AllWear)
+        {
+            Destroy(wear);
+        }
+
+        foreach (var obj in AllObjects)
+        {
+            Destroy(obj);
+        }
+
+        foreach (var badGuy in BadGuys)
+        {
+            Destroy(badGuy);
+        }
+
         AllWear = new List<GameObject>();
         AllObjects = new List<GameObject>();
+        BadGuys = new List<GameObject>();
+        WearCount = 0;
+
+        goodGuy.transform.SetPositionAndRotation(new Vector3(0, 0, 0), Quaternion.identity);
         Start();
     }
-    
+
 // Update is called once per frame
     void Update()
     {
