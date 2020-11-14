@@ -2,6 +2,7 @@
 using static DefaultNamespace.Utils_RandPoint;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 using static Level.GlobalSettings;
 
 public class Generate : MonoBehaviour
@@ -20,6 +21,12 @@ public class Generate : MonoBehaviour
     public GameObject coat;
     public GameObject pants;
     public GameObject scarf;
+    private Text[] _texts;
+
+    private void Awake()
+    {
+        _texts = goodGuy.GetComponentsInChildren<UnityEngine.UI.Text>();
+    }
 
     bool checkPlace(float x, float y, float d)
     {
@@ -111,7 +118,8 @@ public class Generate : MonoBehaviour
         GenerateWear(pants);
         GenerateWear(blouse);
         GenerateBadGuys();
-        goodGuy.GetComponentInChildren<UnityEngine.UI.Text>().text = "Level " + level;
+        _texts[0].text = "Уровень " + level;
+        _texts[1].text = "Найдено " + WearCount + "/" + AllWear.Count;
     }
 
     public void RegenerateLevel()

@@ -96,6 +96,7 @@ public class Move : Physics2DObject
             {
                 wear.transform.SetPositionAndRotation(new Vector2(-150, -150), Quaternion.identity);
                 WearCount++;
+                GoodGuy.GetComponentsInChildren<UnityEngine.UI.Text>()[1].text = "Найдено " + WearCount + "/" + AllWear.Count; 
                 print(WearCount + "/" + AllWear.Count);
 
                 if (WearCount == AllWear.Count)
