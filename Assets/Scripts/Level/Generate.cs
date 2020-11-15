@@ -142,8 +142,21 @@ public class Generate : MonoBehaviour
             Destroy(obj);
         }
 
+        int i = 0;
         foreach (var badGuy in BadGuys)
         {
+            if (i == 0)
+            {
+                i++;
+                float x = RandX(), y = RandY();
+                while (!CheckGoodGuyDistance(x, y, 10))
+                {
+                    x = RandX();
+                    y = RandY();
+                }
+                badGuy.transform.SetPositionAndRotation(new Vector3(x, y), Quaternion.identity);
+                continue;
+            }
             Destroy(badGuy);
         }
         foreach (var camera in Cameras)

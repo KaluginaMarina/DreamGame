@@ -22,7 +22,7 @@ public class AutoMove : Physics2DObject
     // FixedUpdate is called once per frame
     void FixedUpdate()
     {
-        if (!IsGameOn && Input.anyKey && CountWithCamera >= BadGuys.Count - 1)
+        if (!IsGameOn && Input.anyKey && CountWithCamera >= BadGuys.Count)
         {
             level = 1;
             goodGuy.GetComponentsInChildren<UnityEngine.UI.Text>()[2].text = "";
@@ -39,6 +39,8 @@ public class AutoMove : Physics2DObject
                 direction = RandDirection();
             }
 
+            withCamera = false;
+            
             if (CheckGoodGuyDistance(15) && !CheckGoodGuyPlace())
             {
                 var position1 = goodGuy.transform.position;
@@ -53,7 +55,8 @@ public class AutoMove : Physics2DObject
                 IsGameOn = false;
                 IsStart = false;
                 var position2 = badGuy.transform.position;
-                Instantiate(camera, new Vector2((float) (position2.x), (float) (position2.y-0.3)), Quaternion.identity);
+                CountWithCamera++;
+                Cameras.Add(Instantiate(camera, new Vector2((float) (position2.x), (float) (position2.y-0.3)), Quaternion.identity));
                 print("Game Over");
                 withCamera = true;
             }
@@ -102,7 +105,7 @@ public class AutoMove : Physics2DObject
                         Quaternion.identity));
                     withCamera = true;
                     CountWithCamera++;
-                    if (CountWithCamera == BadGuys.Count - 1)
+                    if (CountWithCamera == BadGuys.Count)
                     {
                         goodGuy.GetComponentsInChildren<UnityEngine.UI.Text>()[3].text = "Нажмите любую клавишу, чтобы играть заново.";
                     }
