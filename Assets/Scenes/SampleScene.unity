@@ -1616,8 +1616,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.045, y: 0.9182857}
   m_AnchorMax: {x: 0.045, y: 0.9182857}
-  m_AnchoredPosition: {x: 364, y: -190.85}
-  m_SizeDelta: {x: 19.758286, y: 47.016693}
+  m_AnchoredPosition: {x: 364, y: -195.4}
+  m_SizeDelta: {x: 377.2791, y: 47.016693}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1255134741
 MonoBehaviour:
@@ -2007,6 +2007,7 @@ MonoBehaviour:
   badGuy: {fileID: 1540467958}
   goodGuy: {fileID: 1841155595}
   camera: {fileID: 232352737}
+  generate: {fileID: 2040590052}
 --- !u!50 &1540467962
 Rigidbody2D:
   serializedVersion: 4

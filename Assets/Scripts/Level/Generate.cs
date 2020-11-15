@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using static DefaultNamespace.Utils_RandPoint;
 using UnityEngine;
 using UnityEngine.UI;
