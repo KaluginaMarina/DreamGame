@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -13,20 +14,41 @@ public class Move : Physics2DObject
 
     [Header("Movement")] [Tooltip("Speed of movement")]
     public float speed = 5f;
-
-    public Enums.MovementType movementType = Enums.MovementType.AllDirections;
-
-    [Header("Orientation")] public bool orientToDirection = false;
-
+    
     public GameObject GoodGuy;
 
     private Vector2 movement, cachedDirection;
     private float moveHorizontal;
     private float moveVertical;
+    private DateTime time = DateTime.Now;
+    private int i = 0;
     
+
     void Update()
     {
-        if (!IsStart && IsGameOn)
+        if (BeginingGame)
+        {
+            if (time < DateTime.Now)
+            {
+                time = DateTime.Now.Add(new TimeSpan(0, 0, 0, 5));
+                GoodGuy.transform.SetPositionAndRotation(new Vector2(277, -67), Quaternion.identity);
+                GoodGuy.GetComponentsInChildren<UnityEngine.UI.Text>()[4].text = Texts[i];
+                i++;
+                if (i == 13)
+                {
+                    GoodGuy.transform.SetPositionAndRotation(new Vector2(0, 0), Quaternion.identity);
+                    var _texts = GoodGuy.GetComponentsInChildren<UnityEngine.UI.Text>();
+                    _texts[0].text = "Уровень " + level;
+                    _texts[1].text = "Найдено " + WearCount + "/" + AllWear.Count;
+                    _texts[2].text = "Уровень " + level;
+                    _texts[3].text = "Нажмите любую клавишу для старта";
+                    
+                    BeginingGame = false;
+                }
+            }
+        }
+
+        if (!IsStart && IsGameOn && !BeginingGame)
         {
             if (Input.anyKey)
             {
@@ -34,7 +56,7 @@ public class Move : Physics2DObject
                 GoodGuy.GetComponentsInChildren<UnityEngine.UI.Text>()[3].text = "";
             }
         }
-        
+
         if (IsGameOn)
         {
             // Moving with the arrow keys
@@ -46,7 +68,7 @@ public class Move : Physics2DObject
                 GoodGuy.GetComponentsInChildren<UnityEngine.UI.Text>()[2].text = "";
                 IsStart = true;
             }
-            
+
             var position = GoodGuy.transform.position;
             if (GoodGuy.transform.position.x < x1 + 1.5)
             {
@@ -87,7 +109,7 @@ public class Move : Physics2DObject
             }
 
             CheckWear();
-            
+
             movement = new Vector2(moveHorizontal, moveVertical);
         }
         else
@@ -110,7 +132,8 @@ public class Move : Physics2DObject
             {
                 wear.transform.SetPositionAndRotation(new Vector2(-150, -150), Quaternion.identity);
                 WearCount++;
-                GoodGuy.GetComponentsInChildren<UnityEngine.UI.Text>()[1].text = "Найдено " + WearCount + "/" + AllWear.Count; 
+                GoodGuy.GetComponentsInChildren<UnityEngine.UI.Text>()[1].text =
+                    "Найдено " + WearCount + "/" + AllWear.Count;
                 print(WearCount + "/" + AllWear.Count);
 
                 if (WearCount == AllWear.Count)
@@ -121,8 +144,7 @@ public class Move : Physics2DObject
                     generate.GetComponents<Generate>()[0].RegenerateLevel();
                     IsStart = false;
                 }
-                
-            }    
+            }
         }
     }
 

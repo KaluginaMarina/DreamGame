@@ -124,11 +124,13 @@ public class Generate : MonoBehaviour
         GenerateWear(blouse);
         GenerateBadGuys();
 
-        
-        _texts[0].text = "Уровень " + level;
-        _texts[1].text = "Найдено " + WearCount + "/" + AllWear.Count;
-        _texts[2].text = "Уровень " + level;
-        _texts[3].text = "Нажмите любую клавишу для старта";
+        if (!BeginingGame)
+        {
+            _texts[0].text = "Уровень " + level;
+            _texts[1].text = "Найдено " + WearCount + "/" + AllWear.Count;
+            _texts[2].text = "Уровень " + level;
+            _texts[3].text = "Нажмите любую клавишу для старта";
+        }
     }
 
     public void RegenerateLevel()
